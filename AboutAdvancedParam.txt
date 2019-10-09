@@ -1,0 +1,75 @@
+Static parameters
+## Static parameters are parameters that are always available in the function.  
+## Most parameters in Powershell cmdlets and scripts are static parameters.  
+
+Following example shows the declaration of a computerName parameter that 
+has the following characteristics.  
+	It's mandatory (required)
+	It takes input from the pipeline
+	It takes an array of strings as input
+Param(
+	[Parameter(Mandatory=$true,
+	ValueFromPipelinee=$true)]
+	[String[]]
+	$ComputerName
+)
+
+##Attributes of parameters
+All attributes are optional.  However, if you omit the CmdletBinding attribute,
+then to be recognized as an advanced function, the function must must include the 
+Parameter attribute.  
+
+You can add one or multiple attributes in each parameter declaration.  There's 
+no limit to the number of attributes that you can add to a parameter declaration
+
+##Parameter attribute##
+The parameter attribute is used to declare the attributes of function parameter.  
+Is option, to be recognized as an advanced function, rather than a simple
+function, a function must have either the CmdletBinding attribute or the Parameter or both.  
+
+The Parameter attribute has arguments that define the characteristics of the parameter
+such as whether the parameter is mandatory or optional.
+
+The following syntax to declare the parameter attribute, an argument and an argument value.  
+The paraentheses that enclose the the argument and its value must follow Parameter with no 
+intervening space 
+
+Param(
+    [Parameter(Argument=value)]
+    $ParameterName
+)
+
+Use commas to separate arguments within the parentheses.  use the following syntax to
+declare two arguments of the Parameter attribute
+
+Param(
+    [Parameter(Argument1=value1,
+    Argument2=value2)]
+)
+If you use the parameter attribute without arguments as an alternative to using the CmdletBinding
+attribute, the parentheses that follow the attribute name are still required.  
+
+Param(
+    [Parameter()]
+    $ParameterName
+)
+
+##Mandatory Argument
+Param(
+    [Parameter(Mandatory=$true)]
+    [String[]]
+    $ComputerName
+)
+
+##Position Argument
+You can omit the parameter name when there is a postion argument.  If the position 
+argument isnt specified, the parameter name or a parameter name alias or 
+abbreviation must precede the parameter value whenever the parameter is used in a 
+command
+
+By default all function parameter are positional.  PowerShell assigns position 
+numbers to parameters in the order in which the parameters are decllared in 
+the function.  To disable this feature, set the value of the PositionalBinding
+argument of the CmdletBinding attribute to $False.  The Position argument
+takes precedence over the value of the PositionalBinding argument for the 
+parameters on which it's declared  
